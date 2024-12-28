@@ -126,6 +126,6 @@ Distribuído sob a licença GPL v2. Veja `LICENSE` para mais informações.
 
 ## 📧 Contato
 
-Seu Nome - [seu-email@exemplo.com]
+Jeferson Lima - [jeferson.webdev@gmail.com](mailto:jeferson.webdev@gmail.com)
 
 Link do projeto: [https://github.com/JefersonL/base-theme-wp](https://github.com/JefersonL/base-theme-wp)
