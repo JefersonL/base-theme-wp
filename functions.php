@@ -16,6 +16,20 @@ function theme_setup() {
 }
 add_action('after_setup_theme', 'theme_setup');
 
+// Carregar scripts e estilos
+function theme_scripts() {
+    // Estilos
+    wp_enqueue_style('theme-style', get_stylesheet_uri());
+    wp_enqueue_style('theme-main-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.0.0');
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
+    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap', array(), null );
+    
+    // Scripts
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('theme-main-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'theme_scripts');
+
 // Converter imagens para WebP automaticamente
 function convert_to_webp($metadata, $attachment_id) {
     if (!function_exists('imagewebp')) {
@@ -74,9 +88,35 @@ function add_webp_mime_type($mimes) {
 }
 add_filter('upload_mimes', 'add_webp_mime_type');
 
-// Carregar scripts e estilos
-function theme_scripts() {
-    wp_enqueue_style('theme-style', get_stylesheet_uri(), array(), '1.0.0');
-    wp_enqueue_script('theme-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+// Ajuste do admin bar para menu fixo
+function admin_bar_fix() {
+    if (is_admin_bar_showing()) {
+        echo '<style>
+            .site-header.fixed { top: 32px !important; }
+            @media screen and (max-width: 782px) {
+                .site-header.fixed { top: 46px !important; }
+            }
+        </style>';
+    }
 }
-add_action('wp_enqueue_scripts', 'theme_scripts');
+add_action('wp_head', 'admin_bar_fix');
+
+// Adicionando suporte para logo do footer
+function theme_footer_logo_setup($wp_customize) {
+    $wp_customize->add_section('footer_logo_section', array(
+        'title' => __('Footer Logo', 'base-theme-wp'),
+        'priority' => 30,
+    ));
+
+    $wp_customize->add_setting('footer_logo', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'footer_logo', array(
+        'label' => __('Upload Footer Logo', 'base-theme-wp'),
+        'section' => 'footer_logo_section',
+        'settings' => 'footer_logo',
+    )));
+}
+add_action('customize_register', 'theme_footer_logo_setup');
