@@ -52,12 +52,13 @@ theme-name/
 ## 📦 Instalação
 
 1. Faça o download do tema
-2. Acesse o painel administrativo do WordPress
-3. Vá para Aparência > Temas
-4. Clique em "Adicionar novo"
-5. Clique em "Enviar tema"
-6. Selecione o arquivo do tema e clique em "Instalar agora"
-7. Após a instalação, clique em "Ativar"
+2. Compacte o arquivo no formato zip
+3. Acesse o painel administrativo do WordPress
+4. Vá para Aparência > Temas
+5. Clique em "Adicionar novo"
+6. Clique em "Enviar tema"
+7. Selecione o arquivo do tema e clique em "Instalar agora"
+8. Após a instalação, clique em "Ativar"
 
 ## ⚙️ Configuração
 
